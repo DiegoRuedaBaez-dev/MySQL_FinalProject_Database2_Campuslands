@@ -1,4 +1,3 @@
-
 -- Inserción Países --
 
 INSERT INTO country (name) VALUES
@@ -155,7 +154,7 @@ INSERT INTO employees (id_employees, vname, sn1, sn2, extension, email, id_offic
 
 -- Insercion Contacto --
 
-INSERT INTO contacto (id_contact_info, vname_contact_info, sn_contact_info) VALUES
+INSERT INTO contact(id_contact_info, vname_contact_info, sn_contact_info) VALUES
 (1, 'Juan', 'López'),
 (2, 'María', 'García'),
 (3, 'Carlos', 'Martínez'),
@@ -221,7 +220,7 @@ INSERT INTO order_status (id_status, vstatus) VALUES
 
 -- Insercion de Pedidos --
 
-INSERT INTO order (date_order, date_aprox, date_arrive, comments, id_status, id_client) VALUES
+INSERT INTO vorder(date_order, date_aprox, date_arrive, comments, id_status, id_client) VALUES
 ('2024-05-07', '2024-05-10', '2024-05-10', 'Cancelado', 4, 1),
 ('2024-05-07', '2024-05-10', '2024-01-10', 'Completado', 3, 2),
 ('2024-05-07', '2024-05-10', '2024-05-10', 'Completado', 3, 3),
@@ -245,7 +244,7 @@ INSERT INTO order (date_order, date_aprox, date_arrive, comments, id_status, id_
 
 -- Insercion Detalles de Pedidos --
 
-INSERT INTO order_details (id_order, id_products, quatity, unit_price, brand_number) VALUES
+INSERT INTO order_details (id_vorder, id_products, quatity, unit_price, brand_number) VALUES
 (1, 1, 1, 599.99, 1),  -- Cliente 1: Lavadora
 (2, 2, 1, 499.99, 1),  -- Cliente 2: Sofá
 (3, 3, 1, 899.99, 1),  -- Cliente 3: Televisor

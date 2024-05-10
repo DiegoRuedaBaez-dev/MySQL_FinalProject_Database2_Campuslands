@@ -1,12 +1,11 @@
-
 CREATE TABLE country(
-    id_country INT(11) NOT NULL AUTO_INCREMENT,
+    id_country INT(11) NOT NULL,
     vname VARCHAR(100) NOT NULL,
     PRIMARY KEY(id_country)
 );
 
 CREATE TABLE region(
-    id_region INT(11) NOT NULL AUTO_INCREMENT,
+    id_region INT(11) NOT NULL,
     vname VARCHAR(100) NOT NULL,
     id_country INT(11) NOT NULL,
     PRIMARY KEY(id_region),
@@ -15,7 +14,7 @@ CREATE TABLE region(
 );
 
 CREATE TABLE city(
-    id_city INT(11) NOT NULL AUTO_INCREMENT,
+    id_city INT(11) NOT NULL,
     vname VARCHAR(100) NOT NULL,
     id_region INT(11) NOT NULL,
     PRIMARY KEY(id_city),
@@ -24,7 +23,7 @@ CREATE TABLE city(
 );
 
 CREATE TABLE vaddress(
-    id_vaddress INT(11) NOT NULL AUTO_INCREMENT,
+    id_vaddress INT(11) NOT NULL,
     linea_vaddress VARCHAR(50) NOT NULL,
     barrio VARCHAR(100) NOT NULL,
     codigo_postal VARCHAR(10),
@@ -49,7 +48,7 @@ CREATE TABLE vprovider_address (
 );
 
 CREATE TABLE office (
-    id_office INT(11) NOT NULL AUTO_INCREMENT,
+    id_office INT(11) NOT NULL,
     vname VARCHAR(100) NOT NULL,
     phone VARCHAR(20),
     PRIMARY KEY (id_office)
@@ -64,7 +63,7 @@ CREATE TABLE office_vaddress (
 );
 
 CREATE TABLE product_brand(
-    id_brand INT(11) NOT NULL AUTO_INCREMENT,
+    id_brand INT(11) NOT NULL,
     brand VARCHAR (50) NOT NULL,
     descripcion_texto TEXT,
     descripcion_html TEXT,
@@ -73,7 +72,7 @@ CREATE TABLE product_brand(
 );
 
 CREATE TABLE measurements(
-    id_measurements INT(11) NOT NULL AUTO_INCREMENT,
+    id_measurements INT(11) NOT NULL,
     alto DECIMAL(5),
     ancho DECIMAL(5),
     profundidad INT(5),
@@ -82,13 +81,13 @@ CREATE TABLE measurements(
     PRIMARY KEY (id_measurements)
 );
 
-CREATE TABLE products (
-    id_products INT(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE products(
+    id_products INT(11) NOT NULL,
     PRIMARY KEY (id_products),
     vname VARCHAR(100) NOT NULL,
-    descripcion TEXT,
-    precio_vprovider DECIMAL (12,5),
-    precio_venta DECIMAL(12,5) NOT NULL,
+    descrip TEXT,
+    provider_price DECIMAL (12,5),
+    sell_price DECIMAL(12,5) NOT NULL,
     id_measurements INT(11),
     FOREIGN KEY (id_measurements) REFERENCES measurements(id_measurements),
     id_vprovider INT(11),
@@ -98,7 +97,7 @@ CREATE TABLE products (
 );
 
 CREATE TABLE inventory (
-    id_inventory INT(11) NOT NULL AUTO_INCREMENT,
+    id_inventory INT(11) NOT NULL,
     id_products INT(11) NOT NULL,
     cantidad_en_stock SMALLINT(6) NOT NULL,
     ubicacion VARCHAR(100), 
@@ -160,32 +159,32 @@ CREATE TABLE order_status(
     PRIMARY KEY (id_status)
 );
 
-CREATE TABLE order(
-    id_order INT(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE vorder(
+    id_vorder INT(11) NOT NULL,
     date_order DATE NOT NULL,
     date_aprox DATE NOT NULL,
     date_arrive DATE,
     comments TEXT,
     id_status INT(11) NOT NULL,
     id_client INT(11) NOT NULL,
-    PRIMARY KEY(id_order),
+    PRIMARY KEY(id_vorder),
     CONSTRAINT FK_order_status FOREIGN KEY (id_status) REFERENCES order_status (id_status),
     CONSTRAINT FK_order_client FOREIGN KEY (id_client) REFERENCES client(id_client)
 );
 
 CREATE TABLE order_details (
-    id_order INT(11) NOT NULL,
+    id_vorder INT(11) NOT NULL,
     id_products INT(11) NOT NULL,
     cantidad INT(11),
     precio_unidad DECIMAL(15,2),
     numero_linea SMALLINT(6),
-    PRIMARY KEY (id_order, id_products),
-    FOREIGN KEY (id_order) REFERENCES order(id_order),
+    PRIMARY KEY (id_vorder, id_products),
+    FOREIGN KEY (id_vorder) REFERENCES vorder(id_vorder),
     FOREIGN KEY (id_products) REFERENCES products(id_products)
 );
 
 CREATE TABLE payment(
-id_transaction INT(100) NOT NULL AUTO_INCREMENT,
+id_transaction INT(100) NOT NULL,
 PRIMARY KEY (id_transaction),
 id_client INT(11) NOT NULL,
 payment_type VARCHAR(40) NOT NULL,
@@ -193,30 +192,3 @@ date_payment DATE NOT NULL,
 total DECIMAL(15) NOT NULL,
 CONSTRAINT FK_payment_client FOREIGN KEY (id_client) REFERENCES client(id_client)
 );
-
-mysql> show tables;
-+---------------------+
-| Tables_in_proyecto  |
-+---------------------+
-| city                |
-| client              |
-| client_vaddress     |
-| contact_info        |
-| order_details       |
-| measurements        |
-| vaddress            |
-| employees           |
-| order_status        |
-| product_brand       |
-| inventory           |
-| office              |
-| office_vaddress     |
-| payment             |
-| country             |
-| order               |
-| products            |
-| vprovider            |
-| vprovider_vaddress   |
-| region              |
-+---------------------+
-20 rows in set (0.00 sec)
